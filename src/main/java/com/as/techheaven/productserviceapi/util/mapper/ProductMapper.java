@@ -12,6 +12,6 @@ public interface ProductMapper {
 
     ResponseProductDto toResponseProductDto(Product product);
     Product toProduct(RequestProductDto dto);
-    List<ResponseProductDto> toResponseDoctorDtoList(List<Product> list);
+    List<ResponseProductDto> toResponseProductDtoList(List<Product> list);
 
 }
