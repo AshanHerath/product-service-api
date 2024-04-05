@@ -3,7 +3,7 @@ package com.as.techheaven.productserviceapi.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "categories")
+@Table(name = "categorie")
 @Entity
 @Getter
 @Setter
@@ -19,8 +19,7 @@ public class Category {
     @Column(name="category_name", length =20, nullable = false)
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", unique = true)
+    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
     private Product product;
 
 }
