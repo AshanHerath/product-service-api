@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(RequestProductDto dto, long productId) {
+    public void updateProduct(long productId, RequestProductDto dto) {
 
         Optional<Product> selectedProduct = productRepository.findById(productId);
         if (selectedProduct.isEmpty()) throw new EntityNotFoundException("Product not found");
@@ -80,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> selectedProduct = productRepository.findById(productId);
         if (selectedProduct.isEmpty()) throw new EntityNotFoundException("Product not found");
 
-        productRepository.deleteById(selectedProduct.get().getId());
+        productRepository.deleteProductById(selectedProduct.get().getId());
 
     }
 
