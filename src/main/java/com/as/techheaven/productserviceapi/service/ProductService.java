@@ -7,7 +7,7 @@ import com.as.techheaven.productserviceapi.dto.response.ResponseProductDto;
 public interface ProductService {
 
     public void createProduct(RequestProductDto dto);
-    public void updateProduct(RequestProductDto dto, long productId);
+    public void updateProduct(long productId, RequestProductDto dto);
     public ResponseProductDto findProduct(long productId);
     public void deleteProduct(long productId);
     public PaginateProductResponseDto findAllProducts(int page, int size, String searchText);
