@@ -19,14 +19,14 @@ public class ProductController {
     public ResponseEntity<StandardResponse> createProduct(@RequestBody RequestProductDto requestProductDto){
         productService.createProduct(requestProductDto);
         return new ResponseEntity<>(
-                new StandardResponse(201,"Product was saved!",requestProductDto.getName()), HttpStatus.CREATED
+                new StandardResponse(201,"Product was saved!", requestProductDto.getName()), HttpStatus.CREATED
         );
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<StandardResponse> findProduct(@PathVariable long id){
         return new ResponseEntity<>(
-                new StandardResponse(200,"Id no."+id+" Product data found!",productService.findProduct(id)), HttpStatus.OK
+                new StandardResponse(200,"Id no."+id+" Product data found!", productService.findProduct(id)), HttpStatus.OK
         );
     }
 
@@ -35,7 +35,7 @@ public class ProductController {
     ){
         productService.updateProduct(id,requestProductDto);
         return new ResponseEntity<>(
-                new StandardResponse(201,"Id no."+id+" Product updated!",requestProductDto.getName()), HttpStatus.CREATED
+                new StandardResponse(201,"Id no."+id+" Product updated!", requestProductDto.getName()), HttpStatus.CREATED
         );
     }
 
@@ -50,7 +50,7 @@ public class ProductController {
     @GetMapping(path = "/list", params = {"page", "size", "searchText"})
     public ResponseEntity<StandardResponse> findAllProducts(@RequestParam int page, @RequestParam int size, @RequestParam String searchText){
         return new ResponseEntity<>(
-                new StandardResponse(200,"Products data List!",productService.findAllProducts(page, size, searchText)), HttpStatus.OK
+                new StandardResponse(200,"Products data List!", productService.findAllProducts(page, size, searchText)), HttpStatus.OK
         );
     }
 
