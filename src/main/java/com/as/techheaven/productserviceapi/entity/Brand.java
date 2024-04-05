@@ -23,8 +23,7 @@ public class Brand {
     @Column(name = "brand_imgUrl", nullable = false)
     private String brandImg;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", unique = true)
+    @OneToOne(mappedBy = "brand", cascade = CascadeType.ALL)
     private Product product;
 
 }
