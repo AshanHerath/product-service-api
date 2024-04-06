@@ -1,7 +1,5 @@
 package com.as.techheaven.productserviceapi.dto.request;
 
-import com.as.techheaven.productserviceapi.entity.Brand;
-import com.as.techheaven.productserviceapi.entity.Category;
 import com.as.techheaven.productserviceapi.entity.Discount;
 import com.as.techheaven.productserviceapi.entity.ProductImage;
 import com.as.techheaven.productserviceapi.entity.ProductSpecification;
@@ -20,8 +18,8 @@ public class RequestProductDto {
     private double price;
     private boolean stockStatus;
     private boolean status;
-    private Brand brand;
-    private Category category;
+    private long brandId;
+    private long categoryId;
     private Discount discount;
     private List<ProductImage> productImages;
     private List<ProductSpecification> specifications;
