@@ -1,5 +1,6 @@
 package com.as.techheaven.productserviceapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,8 @@ public class Category {
     @Column(name = "category_name", length = 20, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Product> products;
 
 }

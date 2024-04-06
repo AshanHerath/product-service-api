@@ -1,5 +1,6 @@
 package com.as.techheaven.productserviceapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Discount {
     private String discount;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "product_id", unique = true)
     private Product product;
 

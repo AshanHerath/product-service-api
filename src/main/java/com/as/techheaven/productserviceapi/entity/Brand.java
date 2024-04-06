@@ -1,5 +1,6 @@
 package com.as.techheaven.productserviceapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,8 @@ public class Brand {
     @Column(name = "brand_imgUrl", nullable = false)
     private String brandImg;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand")
+    @JsonIgnore
     private List<Product> products;
 
 }

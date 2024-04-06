@@ -1,11 +1,14 @@
 package com.as.techheaven.productserviceapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
 @Table(name = "products")
+@JsonIgnoreProperties({"brand", "category", "discount", "productImages", "specifications"})
 @Entity
 @Getter
 @Setter
@@ -39,20 +42,25 @@ public class Product {
     private boolean status;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product")
+    @JsonIgnore
     private Discount discount;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<ProductImage> productImages;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<ProductSpecification> specifications;
 
 }

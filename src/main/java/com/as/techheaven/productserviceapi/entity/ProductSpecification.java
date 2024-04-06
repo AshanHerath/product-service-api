@@ -1,5 +1,6 @@
 package com.as.techheaven.productserviceapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,8 @@ public class ProductSpecification {
     @Column(name = "spec_value", nullable = false)
     private String specificationValue;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
