@@ -39,11 +39,11 @@ public class Product {
     private boolean status;
 
     @OneToOne
-    @JoinColumn(name = "brand_id", unique = true)
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
     @OneToOne
-    @JoinColumn(name = "category_id", unique = true)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
