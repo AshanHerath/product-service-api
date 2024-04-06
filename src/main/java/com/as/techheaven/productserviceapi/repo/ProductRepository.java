@@ -13,6 +13,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT * FROM products p WHERE p.product_name LIKE %?1%", nativeQuery = true)
     List<Product> searchProduct(String searchText, PageRequest of);
 
+    @Query(value = "SELECT * FROM products p WHERE p.product_id=?1 AND p.status = true", nativeQuery = true)
+    Product findProduct(long productId);
+
     @Modifying
     @Transactional
     @Query("UPDATE Product p SET p.status = false WHERE p.id = :id")
