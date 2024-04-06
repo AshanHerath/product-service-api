@@ -3,7 +3,9 @@ package com.as.techheaven.productserviceapi.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "categorie")
+import java.util.List;
+
+@Table(name = "categories")
 @Entity
 @Getter
 @Setter
@@ -16,10 +18,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="category_name", length =20, nullable = false)
+    @Column(name = "category_name", length = 20, nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
-    private Product product;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
 
 }
