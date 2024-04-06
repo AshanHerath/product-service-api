@@ -38,12 +38,12 @@ public class Product {
     @Column(name = "status")
     private boolean status;
 
-    @OneToOne
-    @JoinColumn(name = "brand_id")
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @OneToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
