@@ -2,7 +2,9 @@ package com.as.techheaven.productserviceapi.service.impl;
 
 import com.as.techheaven.productserviceapi.dto.paginate.PaginateCategoryResponseDto;
 import com.as.techheaven.productserviceapi.dto.request.RequestCategoryDto;
+import com.as.techheaven.productserviceapi.dto.request.RequestSpecificationTitleDto;
 import com.as.techheaven.productserviceapi.dto.response.ResponseCategoryDto;
+import com.as.techheaven.productserviceapi.dto.response.ResponseSpecificationTitlrDto;
 import com.as.techheaven.productserviceapi.entity.Category;
 import com.as.techheaven.productserviceapi.repo.CategoryRepository;
 import com.as.techheaven.productserviceapi.service.ProductCategoryService;
@@ -11,14 +13,16 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final ProductCategoryMapper categoryMapper;
+    private final ProductCategoryAspectsServiceImpl productCategoryAspectsService;
 
     @Override
     public void createCategory(RequestCategoryDto dto) {
@@ -26,6 +30,23 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 .name(dto.getName())
                 .build();
         categoryRepository.save(category);
+
+        Category savedCategory = categoryRepository.save(category);
+
+        if (savedCategory != null) {
+            Long categoryId = savedCategory.getId();
+
+            List<RequestSpecificationTitleDto> specifications = dto.getSpecifications().stream()
+                    .map(specification -> {
+                        specification.setCategoryId(categoryId);
+                        return specification;
+                    })
+                    .collect(Collectors.toList());
+
+            productCategoryAspectsService.saveSpecifications(specifications);
+        }
+
+
     }
 
     @Override
@@ -44,7 +65,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
         Optional<Category> selectedCategory = categoryRepository.findById(categoryId);
         if (selectedCategory.isEmpty()) throw new EntityNotFoundException("Category not found");
-        return categoryMapper.toResponseCategoryDto(selectedCategory.get());
+        List<ResponseSpecificationTitlrDto> responseSpecifications = productCategoryAspectsService
+                .getSpecificationsByCategoryId(selectedCategory.get().getId()).stream()
+                .map(specification -> new ResponseSpecificationTitlrDto(specification.getId(), specification.getCategoryId(), specification.getSpec()))
+                .collect(Collectors.toList());
+
+        ResponseCategoryDto responseCategoryDto = ResponseCategoryDto.builder()
+                .id(selectedCategory.get().getId())
+                .name(selectedCategory.get().getName())
+                .specifications(responseSpecifications)
+                .build();
+
+        return responseCategoryDto;
     }
 
     @Override
